@@ -1,0 +1,12 @@
+/home/marina/dotnet/StackOverflowClone/bin/Debug/netcoreapp2.0/StackOverflowClone.deps.json
+/home/marina/dotnet/StackOverflowClone/bin/Debug/netcoreapp2.0/StackOverflowClone.runtimeconfig.json
+/home/marina/dotnet/StackOverflowClone/bin/Debug/netcoreapp2.0/StackOverflowClone.runtimeconfig.dev.json
+/home/marina/dotnet/StackOverflowClone/bin/Debug/netcoreapp2.0/StackOverflowClone.dll
+/home/marina/dotnet/StackOverflowClone/bin/Debug/netcoreapp2.0/StackOverflowClone.pdb
+/home/marina/dotnet/StackOverflowClone/obj/Debug/netcoreapp2.0/StackOverflowClone.csproj.CoreCompileInputs.cache
+/home/marina/dotnet/StackOverflowClone/obj/Debug/netcoreapp2.0/UserSecretsAssemblyInfo.cs
+/home/marina/dotnet/StackOverflowClone/obj/Debug/netcoreapp2.0/StackOverflowClone.AssemblyInfoInputs.cache
+/home/marina/dotnet/StackOverflowClone/obj/Debug/netcoreapp2.0/StackOverflowClone.AssemblyInfo.cs
+/home/marina/dotnet/StackOverflowClone/obj/Debug/netcoreapp2.0/StackOverflowClone.dll
+/home/marina/dotnet/StackOverflowClone/obj/Debug/netcoreapp2.0/StackOverflowClone.pdb
+/home/marina/dotnet/StackOverflowClone/bin/Debug/netcoreapp2.0/app.db

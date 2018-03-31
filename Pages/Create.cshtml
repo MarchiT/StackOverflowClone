@@ -1,0 +1,18 @@
+@page
+@model CreateModel
+
+<html>
+    <body>
+        <p>
+            Enter your question.
+        </p>
+
+        <div asp-validation-summary="All"></div>
+       
+        <form method="POST">
+            <div>Title: <input asp-for="Question.Title" /></div>
+            <div>Body: <input asp-for="Question.Body" /></div>
+            <input type="submit" />
+        </form>
+    </body>
+</html>
