@@ -1,3 +1,4 @@
 app.db
 /.vscode
 /bin
+/obj
