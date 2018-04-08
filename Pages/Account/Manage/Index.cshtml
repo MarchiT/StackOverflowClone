@@ -1,45 +1,75 @@
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Statistics";
+    ViewData["Questions"] = "Questions";
+    ViewData["Answers"] = "Answers";
+    ViewData["Points"] = "Points";
+    ViewData["Rank"] = "Leaderboard Rank";
 }
 
 <h4>@ViewData["Title"]</h4>
-@Html.Partial("_StatusMessage", Model.StatusMessage)
+
+<label>@ViewData["Questions"]</label>
 <div class="row">
     <div class="col-md-6">
-        <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Username"></label>
-                <input asp-for="Username" class="form-control" disabled />
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                @if (Model.IsEmailConfirmed)
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>State</th>
+                    <th>Vote</th>
+                    <th>Answers</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contact in Model.Questions)
                 {
-                    <div class="input-group">
-                        <input asp-for="Input.Email" class="form-control" />
-                        <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
-                    </div>
+                    <tr>
+                        <td><a asp-page="../../Details" asp-route-id="@contact.Id">@contact.Title</a></td>
+                        <td>@contact.State.ToString()</td>
+                        <td>@contact.Vote</td>
+                        <td>@contact.Answers.Count</td>
+                    </tr>
                 }
-                else
-                {
-                    <input asp-for="Input.Email" class="form-control" />
-                    <button asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
-                }
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.PhoneNumber"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-default">Save</button>
-        </form>
+            </tbody>
+        </table>
     </div>
 </div>
 
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}
+<label>@ViewData["Answers"]</label>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Question Id</th>
+                    <th>Vote</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contact in Model.Answers)
+                {
+                    <tr>
+                        <td><a asp-page="../../Details" asp-route-id="@contact.QuestionId">@contact.QuestionId</a></td>
+                        <td>@contact.Vote</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<label>@ViewData["Points"]</label>
+<div class="row">
+    <div class="col-md-6">
+        <p>@Model.Points</p> 
+    </div>
+</div>
+
+<label>@ViewData["Rank"]</label>
+<div class="row">
+    <div class="col-md-6">
+        <p>No. @Model.Rank out of @Model.UsersCount users</p>
+    </div>
+</div>
