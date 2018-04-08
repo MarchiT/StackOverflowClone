@@ -1,0 +1,75 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Statistics";
+    ViewData["Questions"] = "Questions";
+    ViewData["Answers"] = "Answers";
+    ViewData["Points"] = "Points";
+    ViewData["Rank"] = "Leaderboard Rank";
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<label>@ViewData["Questions"]</label>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>State</th>
+                    <th>Vote</th>
+                    <th>Answers</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contact in Model.Questions)
+                {
+                    <tr>
+                        <td><a asp-page="../../Details" asp-route-id="@contact.Id">@contact.Title</a></td>
+                        <td>@contact.State.ToString()</td>
+                        <td>@contact.Vote</td>
+                        <td>@contact.Answers.Count</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<label>@ViewData["Answers"]</label>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Question Id</th>
+                    <th>Vote</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contact in Model.Answers)
+                {
+                    <tr>
+                        <td><a asp-page="../../Details" asp-route-id="@contact.QuestionId">@contact.QuestionId</a></td>
+                        <td>@contact.Vote</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<label>@ViewData["Points"]</label>
+<div class="row">
+    <div class="col-md-6">
+        <p>@Model.Points</p>
+    </div>
+</div>
+
+<label>@ViewData["Rank"]</label>
+<div class="row">
+    <div class="col-md-6">
+        <p>No. @Model.Rank out of @Model.UsersCount users</p>
+    </div>
+</div>

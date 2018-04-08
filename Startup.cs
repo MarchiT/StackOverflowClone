@@ -34,8 +34,8 @@ namespace StackOverflowClone
 
             services.AddAuthentication().AddGoogle(googleOptions =>
             {
-                googleOptions.ClientId = Configuration["ClientId"];
-                googleOptions.ClientSecret = Configuration["ClientSecret"];
+                googleOptions.ClientId = "834850390180-br2ob55nl1tdt6bfah22jdvf5jjrsthe.apps.googleusercontent.com";
+                googleOptions.ClientSecret = "svvECy-hlpzvMw1wgjcWHJK3";
             });
 
             services.AddMvc()

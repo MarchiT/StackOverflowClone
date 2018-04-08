@@ -1,3 +1,6 @@
 app.db
 /.vscode
 /bin
+/Migrations
+Startup.cs
+.vs/StackOverflowClone/v15/Server/sqlite3/db.lock

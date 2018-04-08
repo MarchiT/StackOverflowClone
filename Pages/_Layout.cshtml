@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -30,7 +30,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-page="/Index">Home</a></li>
+                    <li><a asp-page="/Questions">Questions</a></li>
                     <li><a asp-page="/About">About</a></li>
                     <li><a asp-page="/Contact">Contact</a></li>
                 </ul>
@@ -39,9 +39,12 @@
         </div>
     </nav>
     <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
+        <img id="logo" src="~/images/stackoverflowclonelogo.png">
+        <div class="wrapper">
+            @RenderBody()
+        </div>
+        <div class="push"></div>
+        <footer class="footer">
             <p>&copy; 2018 - StackOverflowClone</p>
         </footer>
     </div>

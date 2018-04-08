@@ -1,0 +1,29 @@
+﻿@page
+@model IndexModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="content">
+    <div class="inner_content">
+        <h3>Search:</h3>
+        <input id="searchbar_index" type="text"><button class="go_button">GO</button>
+        <h3> Or </h3>
+        <form method="post">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div class="button">
+                    <a class="askbutton" asp-page="./Create">Ask a question yourself</a>
+                </div>
+            }
+            @if (!SignInManager.IsSignedIn(User))
+            {
+                <div class="button">
+                    <a class="askbutton" asp-page="./Create" title="You have to be logged in to ask questions">Ask a question yourself</a>
+                </div>
+            }
+        </form>
+    </div>
+</div>

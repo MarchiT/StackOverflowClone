@@ -3,48 +3,26 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<form method="post">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Body</th>
-                <th>Vote</th>
-                <th>Answers</th>
-                <th>PublisherId</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var contact in Model.Questions)
-            {
-                <tr>
-                    <td>@contact.Id</td>
-                    <td><a asp-page="./Details" asp-route-id="@contact.Id">@contact.Title</a></td>
-                    <td>@contact.Body</td>
-                    <td>@contact.Vote</td>
-                    <td>@contact.Answers.Count</td>
-                    <td>@contact.PublisherId</td>
-                    <td>
-                        @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(contact.PublisherId))
-                        {
-                            <a asp-page="./Edit" asp-route-id="@contact.Id">edit</a>
-                            <button type="submit" asp-page-handler="delete" 
-                                    asp-route-id="@contact.Id">delete</button>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <a asp-page="./Create">Create</a>
-    }
-</form> 
+<div class="content">
+    <div class="inner_content">
+        <h3>Search:</h3>
+        <input id="searchbar_index" type="text"><button class="go_button">GO</button>
+        <h3> Or </h3>
+        <form method="post">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="button">
+                <a class="askbutton" asp-page="./Create">Ask a question yourself</a>
+            </div>
+        }
+        @if (!SignInManager.IsSignedIn(User)) {
+            <div class="button">
+                <a class="askbutton" asp-page="./Create" title="You have to be logged in to ask questions">Ask a question yourself</a>
+            </div>
+        }
+        </form>
+    </div>
+</div>

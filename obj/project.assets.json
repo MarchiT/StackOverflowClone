@@ -13127,28 +13127,30 @@
     ]
   },
   "packageFolders": {
-    "/home/marina/.nuget/packages/": {},
-    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\lzahariev\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/marina/dotnet/StackOverflowClone/StackOverflowClone.csproj",
+      "projectUniqueName": "C:\\Users\\lzahariev\\source\\repos\\StackOverflowClone\\StackOverflowClone.csproj",
       "projectName": "StackOverflowClone",
-      "projectPath": "/home/marina/dotnet/StackOverflowClone/StackOverflowClone.csproj",
-      "packagesPath": "/home/marina/.nuget/packages/",
-      "outputPath": "/home/marina/dotnet/StackOverflowClone/obj/",
+      "projectPath": "C:\\Users\\lzahariev\\source\\repos\\StackOverflowClone\\StackOverflowClone.csproj",
+      "packagesPath": "C:\\Users\\lzahariev\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lzahariev\\source\\repos\\StackOverflowClone\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/home/marina/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\lzahariev\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
