@@ -44,12 +44,10 @@
                 @foreach (var contact in Model.Questions)
                 {
                     <tr>
-                        <td>@contact.Id</td>
                         <td><a asp-page="./Details" asp-route-id="@contact.Id">@contact.Title</a></td>
-                        <td>@contact.Body</td>
+                        <td>@contact.State.ToString()</td>
                         <td>@contact.Vote</td>
                         <td>@contact.Answers.Count</td>
-                        <td>@contact.PublisherId</td>
                         <td>
                             @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(contact.PublisherId))
                             {
