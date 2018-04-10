@@ -47,6 +47,7 @@ body {
     height: 40px;
     border-radius: 10px;
     font-size: 20px;
+    margin-left: 7%;
 }
 
 .askbutton {
@@ -55,6 +56,16 @@ body {
     background-color: #113961;
     margin: auto;
     padding: 8px 267px;
+}
+
+.go_button {
+    border-radius: 10px;    
+    font-size: 20px;
+    background-color: #113961;
+    border: none;
+    padding: 5.75px 10px;
+    color: white;
+    margin: 0px 0px 0px 30px;
 }
 
 .button a {
