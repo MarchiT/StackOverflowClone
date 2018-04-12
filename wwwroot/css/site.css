@@ -68,6 +68,10 @@ body {
     margin: 0px 0px 0px 30px;
 }
 
+.go_button:hover {
+    background-color: #095583;
+}
+
 .button a {
     text-decoration: none;
     color: #ffffff;
@@ -113,11 +117,15 @@ h3 {
 }
 
 .footer {
-    position: absolute;
+    float: left;
     bottom: 0;
     width: 80%;
     height: 20px;
-    margin: 0 auto;
+    margin: 50px auto 0px;
+}
+
+.footer p{
+    margin: 0px;
 }
 
 .wrapper {
@@ -135,5 +143,9 @@ h3 {
     display: block;
     width: 406px;
     margin: auto;
+    margin-top: 20px;
+}
+
+.questions {
     margin-top: 20px;
 }
