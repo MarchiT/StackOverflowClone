@@ -15,17 +15,12 @@ namespace StackOverflowClone.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(
-            ApplicationDbContext db,
-            UserManager<ApplicationUser> userManager)
+        public IndexModel(ApplicationDbContext context)
         {
-            _db = db;
-            _userManager = userManager;
+            _context = context;
         }
-
 
         public IList<Question> Questions { get; private set; }
         public IList<Answer> Answers { get; private set; }
@@ -35,24 +30,21 @@ namespace StackOverflowClone.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _context.Users
+                .Include(u => u.Questions)
+                .Include(u => u.Answers)
+                    .ThenInclude(a => a.Question)
+                .SingleAsync(u => u.UserName.Equals(User.Identity.Name));
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Unable to load user with ID '{User.Identity.Name}'.");
             }
-            
-            // Questions = await _db.Questions
-            //                         .Include(q => q.Publisher)
-            //                             .ThenInclude(p => p.Questions)
-            //                         .AsNoTracking()
-            //                         .ToListAsync();
-            // Questions = Questions.Where(q => q.Publisher.Id.Equals(user.Id)).ToList();
             
             Questions = user.Questions.ToList();
             Answers = user.Answers.ToList();
             Points = user.Points;
             Rank = user.Points; //TODO calculate this when the Leaderboard is done
-            UsersCount = _db.Users.Count();
+            UsersCount = _context.Users.Count();
 
             return Page();
         }

@@ -10,26 +10,24 @@
 
 <h4>@ViewData["Title"]</h4>
 
-<label>@ViewData["Questions"]</label>
+<span class="badge badge-secondary">@ViewData["Questions"]</span>
 <div class="row">
     <div class="col-md-6">
         <table class="table">
             <thead>
                 <tr>
                     <th>Title</th>
-                    <th>State</th>
                     <th>Vote</th>
-                    <th>Answers</th>
+                    <th>State</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var contact in Model.Questions)
+                @foreach (var item in Model.Questions)
                 {
                     <tr>
-                        <td><a asp-page="../../Details" asp-route-id="@contact.Id">@contact.Title</a></td>
-                        <td>@contact.State.ToString()</td>
-                        <td>@contact.Vote</td>
-                        <td>@contact.Answers.Count</td>
+                        <td><a asp-page="../../Details" asp-route-id="@item.Id">@item.Title</a></td>
+                        <td>@item.Vote</td>
+                        <td>@item.State.ToString()</td>
                     </tr>
                 }
             </tbody>
@@ -37,22 +35,24 @@
     </div>
 </div>
 
-<label>@ViewData["Answers"]</label>
+<span class="badge badge-secondary">@ViewData["Answers"]</span>
 <div class="row">
     <div class="col-md-6">
         <table class="table">
             <thead>
                 <tr>
-                    <th>Question Id</th>
+                    <th>Question</th>
                     <th>Vote</th>
+                    <th>Body</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var contact in Model.Answers)
+                @foreach (var item in Model.Answers)
                 {
                     <tr>
-                        <td><a asp-page="../../Details" asp-route-id="@contact.QuestionId">@contact.QuestionId</a></td>
-                        <td>@contact.Vote</td>
+                        <td><a asp-page="../../Details" asp-route-id="@item.Question.Id">@item.Question.Title</a></td>
+                        <td>@item.Vote</td>
+                        <td>@item.Body</td>
                     </tr>
                 }
             </tbody>
@@ -60,14 +60,14 @@
     </div>
 </div>
 
-<label>@ViewData["Points"]</label>
+<span class="badge badge-secondary">@ViewData["Points"]</span>
 <div class="row">
     <div class="col-md-6">
         <p>@Model.Points</p> 
     </div>
 </div>
 
-<label>@ViewData["Rank"]</label>
+<span class="badge badge-secondary">@ViewData["Rank"]</span>
 <div class="row">
     <div class="col-md-6">
         <p>No. @Model.Rank out of @Model.UsersCount users</p>
