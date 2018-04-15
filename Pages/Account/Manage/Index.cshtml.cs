@@ -43,7 +43,8 @@ namespace StackOverflowClone.Pages.Account.Manage
             Questions = user.Questions.ToList();
             Answers = user.Answers.ToList();
             Points = user.Points;
-            Rank = user.Points; //TODO calculate this when the Leaderboard is done
+            Rank = Leaderboard.Calculate(_context)
+                .IndexOf(new Competitor{Points = user.Points, Name = user.UserName}) + 1;
             UsersCount = _context.Users.Count();
 
             return Page();

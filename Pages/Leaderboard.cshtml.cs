@@ -4,29 +4,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Linq;
 using StackOverflowClone.Data;
 
 namespace StackOverflowClone.Pages
 {
     public class LeaderboardModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
-        public LeaderboardModel(
-            ApplicationDbContext db,
-            UserManager<ApplicationUser> userManager)
+        public LeaderboardModel(ApplicationDbContext context)
         {
-            _db = db;
-            _userManager = userManager;   
+            _context = context;
         }
 
-        public IList<ApplicationUser> Users { get; private set; }
+        public IList<Competitor> Users { get; private set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
-            return Page();            
+            Users = Leaderboard.Calculate(_context);
+
+            return Page();
         }
     }
 }

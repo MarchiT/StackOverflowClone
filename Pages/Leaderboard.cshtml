@@ -12,17 +12,18 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Username</th>
                     <th>Points</th>
+                    <th>Username</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var contact in Model.Users)
+                @{int i = 1;}
+                @foreach (var item in Model.Users)
                 {
                     <tr>
-                        <td>@contact.Users</td>
-                        <td>@contact.Users</td>
-                        <td>@contact.Users</td>
+                        <td>@i @{i++;}</td>
+                        <td>@item.Points</td>
+                        <td>@item.Name</td>
                     </tr>
                 }
             </tbody>
