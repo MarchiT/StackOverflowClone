@@ -29,9 +29,19 @@ namespace StackOverflowClone.Data
             builder.Entity<Answer>()
                 .Property(a => a.Vote)
                 .HasDefaultValue(0);
+
+            builder.Entity<QuestionTag>()
+                .HasKey(qt => new { qt.QuestionId, qt.TagId });
+
+            builder.Entity<Tag>()
+                .HasIndex(t => t.Name)
+                .IsUnique();
         }
 
-        public virtual DbSet<Question> Questions { get; set; }
-        public virtual DbSet<Answer> Answers { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+
     }
 }

@@ -11,17 +11,18 @@ namespace StackOverflowClone.Data
     {
         Open, Closed
     }
+
     public class Question
     {
         public Question()
         {
+            this.QuestionTags = new HashSet<QuestionTag>();
             this.Answers = new HashSet<Answer>();
-            this.Tags = new HashSet<Tag>();
+            this.Comments = new HashSet<Comment>();
 
             this.State = State.Open;
         }
 
-        [Key]
         public int Id { get; set; }
         [Required, StringLength(100)]
         public string Title { get; set; }
@@ -30,14 +31,10 @@ namespace StackOverflowClone.Data
         public int Vote { get; set; }
         public State State { get; set; }
 
-        public string PublisherId { get; set; }
-
-        [ForeignKey("PublisherId")]
-        public virtual ApplicationUser Publisher { get; set; }
-
-
-        public virtual ICollection<Answer> Answers { get; set; }
-        public ICollection<Tag> Tags { get; set; }
+        public ApplicationUser Publisher { get; set; }
+        public ICollection<QuestionTag> QuestionTags { get; set; }
+        public ICollection<Answer> Answers { get; set; }
+        public ICollection<Comment> Comments { get; set; }
 
     }
 

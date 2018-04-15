@@ -7,18 +7,19 @@ namespace StackOverflowClone.Data
 {
     public class Answer
     {
-        [Key]
+        public Answer()
+        {
+            Comments = new HashSet<Comment>();
+        }
+        
         public int Id { get; set; }
-        [Required, StringLength(255)]
+        [Required]
+        [DataType(DataType.MultilineText)]
         public string Body { get; set; }
         public int Vote { get; set; }
 
-        public string PublisherId { get; set; }
-        [ForeignKey("PublisherId")]
-        public virtual ApplicationUser Publisher { get; set; }
-
-        public int QuestionId { get; set; }
-        [ForeignKey("QuestionId")]
-        public virtual Question Question { get; set; }
+        public ApplicationUser Publisher { get; set; }
+        public Question Question { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

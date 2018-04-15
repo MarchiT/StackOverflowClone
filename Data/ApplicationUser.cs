@@ -13,10 +13,12 @@ namespace StackOverflowClone.Data
         {
             this.Questions = new HashSet<Question>();
             this.Answers = new HashSet<Answer>();
+            this.Comments = new HashSet<Comment>();
         }
         public int Points { get; set; }
 
-        public virtual ICollection<Question> Questions { get; set; }
-        public virtual ICollection<Answer> Answers { get; set; }
+        public ICollection<Question> Questions { get; set; }
+        public ICollection<Answer> Answers { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }
