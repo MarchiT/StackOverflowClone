@@ -11,12 +11,12 @@ namespace StackOverflowClone.Pages
 {
     public class EditModel : PageModel
     {
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ApplicationDbContext _db;
 
-        public EditModel(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        public EditModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _db = db;
+            _context = context;
             _userManager = userManager;
         }
 
@@ -25,13 +25,24 @@ namespace StackOverflowClone.Pages
 
         public async Task<IActionResult> OnGetAsync(int? id) 
         {
-            Question = await _db.Questions.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Question = await _context.Questions
+                .Include(q => q.Publisher).SingleOrDefaultAsync(q => q.Id == id);
 
             if (Question == null) 
             {
-                return RedirectToPage("/Index");
+                return NotFound();
             }
             
+            if (Question.Publisher.UserName != User.Identity.Name)
+            {
+                return Redirect("../Index");
+            }
+
             return Page();
         }
 
@@ -42,18 +53,31 @@ namespace StackOverflowClone.Pages
                 return Page();
             }
             
-            _db.Attach(Question).State = EntityState.Modified;
+            Question.Publisher = await _userManager.GetUserAsync(HttpContext.User);
+            _context.Attach(Question).State = EntityState.Modified;
 
             try
             {
-                await _db.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                throw new Exception($"Question {Question.Id} not found!");
+                if (!QuestionExists(Question.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("./Index");
+        }
+
+        private bool QuestionExists(int id)
+        {
+            return _context.Questions.Any(e => e.Id == id);
         }
     }
 }

@@ -41,13 +41,17 @@ namespace StackOverflowClone.Pages.Account.Manage
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
             
-            Questions = await _db.Questions.AsNoTracking().ToListAsync();
-            Questions = Questions.Where(q => q.PublisherId.Equals(user.Id)).ToList();
-
-            // Questions = user.Questions;
+            // Questions = await _db.Questions
+            //                         .Include(q => q.Publisher)
+            //                             .ThenInclude(p => p.Questions)
+            //                         .AsNoTracking()
+            //                         .ToListAsync();
+            // Questions = Questions.Where(q => q.Publisher.Id.Equals(user.Id)).ToList();
+            
+            Questions = user.Questions.ToList();
             Answers = user.Answers.ToList();
             Points = user.Points;
-            Rank = user.Points;
+            Rank = user.Points; //TODO calculate this when the Leaderboard is done
             UsersCount = _db.Users.Count();
 
             return Page();

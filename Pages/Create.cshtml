@@ -1,18 +1,39 @@
 @page
 @model CreateModel
 
-<html>
-    <body>
-        <p>
-            Enter your question.
-        </p>
+@{
+    ViewData["Title"] = "Create";
+}
 
-        <div asp-validation-summary="All"></div>
-       
-        <form method="POST">
-            <div>Title: <input asp-for="Question.Title" /></div>
-            <div>Body: <input asp-for="Question.Body" /></div>
-            <input type="submit" />
+<h2>Create</h2>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Question.Title" class="control-label"></label>
+                <input asp-for="Question.Title" class="form-control" />
+                <span asp-validation-for="Question.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Body" class="control-label"></label>
+                <input asp-for="Question.Body" class="form-control" />
+                <span asp-validation-for="Question.Body" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </form>
-    </body>
-</html>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

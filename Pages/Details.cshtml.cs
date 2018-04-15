@@ -12,31 +12,59 @@ namespace StackOverflowClone.Pages
 {
     public class DetailsModel : PageModel
     {
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ApplicationDbContext _db;
 
-        public DetailsModel(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        public DetailsModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _db = db;
+            _context = context;
             _userManager = userManager;
         }
 
-
         public Question Question { get; private set; }
-        public ApplicationUser Publisher { get; private set; }
-
+        [BindProperty]
+        public Comment Comment { get; set; 
+        }
         public async Task<IActionResult> OnGetAsync(int? id) 
         {    
-            Question = await _db.Questions.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Question = await _context.Questions
+                .Include(q => q.Publisher)
+                .Include(q => q.Answers)
+                    .ThenInclude(a => a.Comments)
+                .Include(c => c.Comments)
+                    .ThenInclude(c => c.Question)
+                .Include(c => c.Comments)
+                    .ThenInclude(c => c.Publisher)
+                .Include(p => p.QuestionTags)
+                    .ThenInclude(pq => pq.Tag)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
             
             if (Question == null) 
             {
-                return RedirectToPage("/Index");
+                return NotFound();
             }
-
-            Publisher = await _userManager.FindByIdAsync(Question.PublisherId);
             
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostCommentAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).ToList();
+                return RedirectToPage(errors[0]);
+            }
+            
+            _context.Comments.Add(Comment);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Index");
         }
     }
 }

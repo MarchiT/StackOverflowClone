@@ -11,34 +11,39 @@ namespace StackOverflowClone.Pages
 {
     public class CreateModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public CreateModel(ApplicationDbContext db, UserManager<ApplicationUser> userManager) {
-            _db = db;
+        public CreateModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager) {
+            _context = context;
             _userManager = userManager;
+        }
+
+
+        public IActionResult OnGet()
+        {
+            return Page();
         }
 
         [BindProperty]
         public Question Question { get; set; }
 
-
-        public Task<ApplicationUser> GetCurrentUser() => _userManager.GetUserAsync(HttpContext.User);
-        
-
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid) 
+            {
                 return Page();
             }
 
             var user = await GetCurrentUser();
             user.Points += 5;
             user.Questions.Add(Question);            
-            await _db.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("./Index");
         }
 
+        private Task<ApplicationUser> GetCurrentUser() 
+            => _userManager.GetUserAsync(HttpContext.User);        
     }
 }

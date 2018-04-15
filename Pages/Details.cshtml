@@ -1,28 +1,97 @@
-@page "{id:int}"
+@page "{id:int?}"
 @model DetailsModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Question Details";
 }
 
-<h1>@ViewData["Title"] - @Model.Question.Id</h1>
+<h2>@ViewData["Title"]</h2>
+
 <div>
-    <hr>
+    <h4>Question</h4>
+    <hr />
 
-    <h3>@Model.Question.Title</h3>
-    <h5>Publisher: <b><i>@Model.Publisher.UserName</i></b></h5>
-
-    <hr>
-
-    <p>@Model.Question.Body</p>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Body)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Body)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Publisher)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Publisher.Id)
+        </dd>
+    </dl>
     
-    <hr>
-
-    <ul>
-        @foreach (var contact in Model.Question.Answers)
+    <div>
+        @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(Model.Question.Publisher.Id))
         {
-            <li>@contact.Body :@contact.Vote</li>
+            <a asp-page="./Edit" asp-route-id="@Model.Question.Id">Edit</a> 
+            @: |
         }
-    </ul>
+        <a asp-page="./Index">Back to List</a>
+    </div>
+    <hr />
 
+    <h5>Tags</h5>
+    <div>
+        @foreach(var item in @Model.Question.QuestionTags)
+        {
+            <button type="button" asp-page="/Tags" asp-route-id="@item.Tag.Name">@item.Tag.Name</button> 
+        }
+    </div>
+    <hr />
+
+    <h5>Answers</h5>
+    <div>
+        <ul>
+            @foreach (var contact in Model.Question.Answers)
+            {
+                <li>@contact.Vote vote: @contact.Body</li>
+            }
+        </ul>
+    </div>
+    <hr />
+
+    <h5>Comments</h5>
+    <div class="comments">
+        <ul class="list-group">
+            @foreach (var comment in @Model.Question.Comments)
+            {
+                <li class="list-group-item">
+                    <em>@comment.Publisher.UserName</em>
+                    &nbspcommented:
+
+                    @comment.Body
+                </li>
+            }
+        </ul>
+    </div>
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+    <div class="card">
+        <div class="card-block">
+            <form method="POST">
+                <div class="form-group">
+                    <textarea name="body" asp-for="Comment.Body" placeholder="Your comment here." class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" asp-page-handler="comment" value="Add comment" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+    }
 </div>

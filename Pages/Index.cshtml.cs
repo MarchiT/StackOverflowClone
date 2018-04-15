@@ -6,39 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using StackOverflowClone.Data;
-using Microsoft.AspNetCore.Identity;
 
 namespace StackOverflowClone.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(ApplicationDbContext db)
+        public IndexModel(ApplicationDbContext context)
         {
-            _db = db;
+            _context = context;
         }
 
         public IList<Question> Questions { get; private set; }
 
-
         public async Task OnGetAsync()
         {
-            Questions = await _db.Questions.AsNoTracking().ToListAsync();
-        }
-
-        public async Task<IActionResult> OnPostDeleteAsync(int id)
-        {
-            var question = await _db.Questions.FindAsync(id);
-
-            if (question != null)
-            {
-                question.Answers.Clear();
-                _db.Questions.Remove(question);
-                await _db.SaveChangesAsync();
-            }
-
-            return RedirectToPage();
+            Questions = await _context.Questions
+                .Include(q => q.Publisher)
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }
