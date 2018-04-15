@@ -17,8 +17,8 @@ namespace StackOverflowClone.Data
         }
         public int Points { get; set; }
 
-        public ICollection<Question> Questions { get; set; }
-        public ICollection<Answer> Answers { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }
