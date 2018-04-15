@@ -47,6 +47,6 @@ else
 {
     @foreach (var tag in Model.Tags)
     {   
-        <p><button type="button" asp-page="/Tags" asp-route-id="@tag.Name">@tag.Name</button></p>
+        <p><a asp-route-name="@tag.Name" class="btn btn-primary btn-block">@tag.Name</a></p>
     }
 }

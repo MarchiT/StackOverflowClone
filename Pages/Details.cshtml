@@ -44,16 +44,16 @@
     </div>
     <hr />
 
-    <h5>Tags</h5>
+    <h5 class="badge badge-secondary">Tags</h5>
     <div>
         @foreach(var item in @Model.Question.QuestionTags)
         {
-            <button type="button" asp-page="/Tags" asp-route-id="@item.Tag.Name">@item.Tag.Name</button> 
+            <a asp-page="/Tags/Index" asp-route-name="@item.Tag.Name" class="btn btn-primary">@item.Tag.Name</a>
         }
     </div>
     <hr />
 
-    <h5>Answers</h5>
+    <h5 class="badge badge-secondary">Answers</h5>
     <div>
         <ul>
             @foreach (var contact in Model.Question.Answers)
@@ -64,7 +64,7 @@
     </div>
     <hr />
 
-    <h5>Comments</h5>
+    <h5 class="badge badge-secondary">Comments</h5>
     <div class="comments">
         <ul class="list-group">
             @foreach (var comment in @Model.Question.Comments)
@@ -84,6 +84,7 @@
     <div class="card">
         <div class="card-block">
             <form method="POST">
+                <input type="hidden" asp-for="Comment.Id">
                 <div class="form-group">
                     <textarea name="body" asp-for="Comment.Body" placeholder="Your comment here." class="form-control" required></textarea>
                 </div>
