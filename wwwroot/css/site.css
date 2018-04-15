@@ -68,6 +68,44 @@ body {
     margin: 0px 0px 0px 30px;
 }
 
+.go_button:hover {
+    background-color: #095583;
+}
+
+.editdeletebutton {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    display: inline-block;
+    padding: 3px 6px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-radius: 4px;
+}
+
+.editdeletebutton:hover {
+    background-color: #2e6da4;
+    color: white;
+}
+
 .button a {
     text-decoration: none;
     color: #ffffff;
@@ -82,6 +120,15 @@ body {
     text-decoration: none;
     color: white;
     vertical-align: middle;
+}
+
+#logoutbutton {
+    color: black;
+}
+
+#logoutbutton:hover {
+    background-color: #BAE1FF;
+    text-decoration: none;
 }
 
 .navbar-inverse {
@@ -113,11 +160,15 @@ h3 {
 }
 
 .footer {
-    position: absolute;
+    float: left;
     bottom: 0;
     width: 80%;
     height: 20px;
-    margin: 0 auto;
+    margin: 50px auto 0px;
+}
+
+.footer p{
+    margin: 0px;
 }
 
 .wrapper {
@@ -136,4 +187,18 @@ h3 {
     width: 406px;
     margin: auto;
     margin-top: 20px;
+}
+
+.questions {
+    margin-top: 20px;
+}
+
+#logoutbutton {
+    color: black
+}
+
+.navbar-nav > li > button {
+    padding-top: 15px;
+    padding-bottom: 13px;
+    margin: 0;
 }
