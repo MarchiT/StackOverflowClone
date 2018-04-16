@@ -104,6 +104,7 @@ body {
 .editdeletebutton:hover {
     background-color: #2e6da4;
     color: white;
+    text-decoration: none;
 }
 
 .button a {
@@ -190,7 +191,7 @@ h3 {
 }
 
 .questions {
-    margin-top: 20px;
+    margin-top: 100px;
 }
 
 #logoutbutton {
@@ -200,5 +201,11 @@ h3 {
 .navbar-nav > li > button {
     padding-top: 15px;
     padding-bottom: 13px;
-    margin: 0;
+    margin: 0;  
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th,
+.table > tfoot > tr > td, .table > tfoot > tr > th,
+.table > thead > tr > td, .table > thead > tr > th {
+    border-color: #000;
 }
