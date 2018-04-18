@@ -23,11 +23,9 @@
                 <input asp-for="Question.Body" class="form-control" />
                 <span asp-validation-for="Question.Body" class="text-danger"></span>
             </div>
-            <select>
-                @foreach (var item in Model.Tagslist)
-                {
-                <option value="@item.Name ">@item.Name </option>
-                }
+            <select asp-for="TagId"
+                asp-items="@(new SelectList(Model.Tagslist, "Id", "Name"))">
+
             </select>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-default" />

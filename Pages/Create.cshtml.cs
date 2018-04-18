@@ -30,7 +30,8 @@ namespace StackOverflowClone.Pages
 
         [BindProperty]
         public Question Question { get; set; }
-
+        [BindProperty]
+        public int TagId { get; set; }
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) 
@@ -40,7 +41,17 @@ namespace StackOverflowClone.Pages
 
             var user = await GetCurrentUser();
             user.Points += 5;
-            user.Questions.Add(Question);            
+            Tag tag = _context.Tags.First(t =>t.Id == TagId);
+            QuestionTag qt = new QuestionTag {
+                QuestionId =Question.Id,
+                Question = Question,
+                TagId = tag.Id,
+                Tag = tag
+
+            };
+            Question.QuestionTags.Add(qt);
+            user.Questions.Add(Question);
+            
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
