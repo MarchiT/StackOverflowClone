@@ -30,17 +30,26 @@
             @Html.DisplayNameFor(model => model.Question.Publisher)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Question.Publisher.Id)
+            @Html.DisplayFor(model => model.Question.Publisher.UserName)
         </dd>
     </dl>
     
     <div>
+        <a class="btn btn-default">Upvote</a>
+        <a class="btn btn-default">Downvote</a>
         @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(Model.Question.Publisher.Id))
         {
-            <a asp-page="./Edit" asp-route-id="@Model.Question.Id">Edit</a> 
-            @: |
+            <a class="btn btn-default" asp-page="./Edit" asp-route-id="@Model.Question.Id">Edit</a>
         }
-        <a asp-page="./Index">Back to List</a>
+        <a class="btn btn-default" asp-page="./Index">Back to List</a>
+        @if (Model.Question.State.Equals("Open"))
+        {
+            <a class="btn btn-default">Close question</a>
+        }
+        else
+        {
+            <a class="btn btn-default">Open question</a>
+        }
     </div>
     <hr />
 

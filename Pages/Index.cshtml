@@ -32,16 +32,22 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Questions[0].Title)
+                        Title
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Questions[0].Body)
+                        Body
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Questions[0].Publisher)
+                        Publisher
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Questions[0].State)
+                        State
+                    </th>
+                    <th>
+                        Votes
+                    </th>
+                    <th>
+                        Answers
                     </th>
                     <th></th>
                 </tr>
@@ -63,14 +69,20 @@
                         @Html.DisplayFor(modelItem => item.State)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Vote)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Answers.Count)
+                    </td>
+                    <td>
                         <a class="btn btn-default" asp-page="./Details" asp-route-id="@item.Id">Details</a>
                         @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(item.Publisher.Id))
-                        {
-                            @: |
-                            <a class="btn btn-default" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
-                            @: |
-                            <a class="btn btn-default" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                        }
+        {
+                @: |
+                <a class="btn btn-default" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                @: |
+                <a class="btn btn-default" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+}
                     </td>
                 </tr>
                 }
