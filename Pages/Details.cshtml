@@ -53,7 +53,7 @@
         {
             <a class="btn btn-default">Close question</a>
         }
-        else
+        else if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(Model.Question.Publisher.Id) && Model.Question.State.Equals(State.Closed))
         {
             <a class="btn btn-default">Open question</a>
         }
