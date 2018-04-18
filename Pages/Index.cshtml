@@ -40,33 +40,39 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Questions[0].Publisher)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Questions[0].State)
+                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.Questions)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Body)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Publisher.Id)
-                        </td>
-                        <td>
-                            <a class="editdeletebutton" asp-page="./Details" asp-route-id="@item.Id">Details</a>
-                            @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(item.Publisher.Id))
-                            {
-                                @: |
-                                <a class="editdeletebutton" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
-                                @: |
-                                <a class="editdeletebutton" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                            }
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Body)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Publisher.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                        <a class="btn btn-default" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                        @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(item.Publisher.Id))
+                        {
+                            @: |
+                            <a class="btn btn-default" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                            @: |
+                            <a class="btn btn-default" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
