@@ -42,7 +42,7 @@
             <a class="btn btn-default" asp-page="./Edit" asp-route-id="@Model.Question.Id">Edit</a>
         }
         <a class="btn btn-default" asp-page="./Index">Back to List</a>
-        @if (Model.Question.State.Equals("Open"))
+        @if (Model.Question.State == State.Open)
         {
             <a class="btn btn-default">Close question</a>
         }
