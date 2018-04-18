@@ -65,7 +65,7 @@ body {
     border: none;
     padding: 5.75px 10px;
     color: white;
-    margin: 0px 0px 0px 30px;
+    margin-left: 10px;
 }
 
 .go_button:hover {
