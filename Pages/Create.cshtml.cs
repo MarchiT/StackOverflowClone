@@ -18,12 +18,15 @@ namespace StackOverflowClone.Pages
             _context = context;
             _userManager = userManager;
         }
-
-
+        
+        public List<Tag> Tagslist { get; set; }
         public IActionResult OnGet()
         {
+
+            Tagslist = _context.Tags.ToList();
             return Page();
         }
+      
 
         [BindProperty]
         public Question Question { get; set; }
