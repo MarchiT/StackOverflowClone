@@ -22,9 +22,14 @@ namespace StackOverflowClone.Pages
         }
 
         public Question Question { get; private set; }
+
+        [TempData]
+        public int QuestionId { get; set; }
         [BindProperty]
-        public Comment Comment { get; set; 
-        }
+        public Answer Answer { get; set; }
+        [BindProperty]
+        public Comment Comment { get; set; }
+        
         public async Task<IActionResult> OnGetAsync(int? id) 
         {    
             if (id == null)
@@ -49,7 +54,24 @@ namespace StackOverflowClone.Pages
             {
                 return NotFound();
             }
+
+            QuestionId = Question.Id;
             
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAnswerAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage("/Index");
+            }
+
+            Answer.Question = await GetQuestionAsync();
+            var user = await GetUserAsync();
+            user.Answers.Add(Answer);
+            await _context.SaveChangesAsync();
+
             return Page();
         }
 
@@ -57,14 +79,18 @@ namespace StackOverflowClone.Pages
         {
             if (!ModelState.IsValid)
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).ToList();
-                return RedirectToPage(errors[0]);
+                return Page();
             }
             
-            _context.Comments.Add(Comment);
+            Comment.Question = await GetQuestionAsync();
+            var user = await GetUserAsync();
+            user.Comments.Add(Comment);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return Page();
         }
+
+        private Task<Question> GetQuestionAsync() => _context.Questions.SingleOrDefaultAsync(q => q.Id == QuestionId);
+        private Task<ApplicationUser> GetUserAsync() => _userManager.GetUserAsync(User);
     }
 }
