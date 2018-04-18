@@ -35,14 +35,21 @@
     </dl>
     
     <div>
-        <a class="btn btn-default">Upvote</a>
-        <a class="btn btn-default">Downvote</a>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a class="btn btn-default">Upvote</a>
+            <a class="btn btn-default">Downvote</a>
+        }
+
         @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(Model.Question.Publisher.Id))
         {
             <a class="btn btn-default" asp-page="./Edit" asp-route-id="@Model.Question.Id">Edit</a>
         }
+        
         <a class="btn btn-default" asp-page="./Index">Back to List</a>
-        @if (Model.Question.State == State.Open)
+        
+        @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(Model.Question.Publisher.Id)
+                                            && Model.Question.State.Equals(State.Open))
         {
             <a class="btn btn-default">Close question</a>
         }
