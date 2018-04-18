@@ -20,12 +20,26 @@ namespace StackOverflowClone.Pages
 
         public IList<Question> Questions { get; private set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string state)
         {
             Questions = await _context.Questions
                 .Include(q => q.Publisher)
                 .AsNoTracking()
                 .ToListAsync();
+            
+            if (state == null)
+            {
+                return Page();
+            } 
+            else if (Enum.TryParse(state, out State State))
+            {
+                Questions = Questions.Where(q => q.State == State).ToList();
+                return Page();
+            }
+            else
+            {
+                return NotFound();                
+            }
         }
     }
 }

@@ -3,7 +3,11 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-@if(Model.Parameter != null)
+@{
+    ViewData["Title"] = "Tags";
+}
+
+@if (Model.Parameter != null)
 {
     <h1>Parameter:  @Model.Parameter</h1>
 
@@ -17,28 +21,29 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.QuestionTags) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Question.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Question.Body)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Question.Publisher.Id)
-                </td>
-                <td>
-                    <a asp-page="../Details" asp-route-id="@item.Question.Id">Details</a>
-                    @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(item.Question.Publisher.Id))
-                    {
-                        @: | 
-                        <a asp-page="../Edit" asp-route-id="@item.Question.Id">Edit</a>
-                        @: |
-                        <a asp-page="../Delete" asp-route-id="@item.Question.Id">Delete</a>
-                    }
-                </td>
-            </tr>
+            @foreach (var item in Model.QuestionTags)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Question.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Question.Body)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Question.Publisher.UserName)
+                    </td>
+                    <td>
+                        <a class="btn btn-default" asp-page="../Details" asp-route-id="@item.Question.Id">Details</a>
+                        @if (SignInManager.IsSignedIn(User) && UserManager.GetUserId(User).Equals(item.Question.Publisher.Id))
+                        {
+                            @: |
+                            <a class="btn btn-default" asp-page="../Edit" asp-route-id="@item.Question.Id">Edit</a>
+                            @: |
+                            <a class="btn btn-default" asp-page="../Delete" asp-route-id="@item.Question.Id">Delete</a>
+                        }
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -46,7 +51,7 @@
 else
 {
     @foreach (var tag in Model.Tags)
-    {   
+    {
         <p><a asp-route-name="@tag.Name" class="btn btn-primary btn-block">@tag.Name</a></p>
     }
 }
